@@ -1,4 +1,4 @@
-C51 COMPILER V9.59.0.0   MAIN                                                              01/12/2019 17:50:24 PAGE 1   
+C51 COMPILER V9.59.0.0   MAIN                                                              01/12/2019 17:56:48 PAGE 1   
 
 
 C51 COMPILER V9.59.0.0, COMPILATION OF MODULE MAIN
@@ -32,7 +32,7 @@ line level    source
   22   1        TH0=(65536-500)/256;
   23   1        TL0=(65536-500)%256;
   24   1        TR0=1;
-  25   1        DAC();
+  25   1        disDAC();
   26   1        while(1)
   27   1        {
   28   2          

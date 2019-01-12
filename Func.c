@@ -10,15 +10,23 @@ extern data da;
 extern uchar disp[8];
 extern uchar d2;
 extern uchar k;
-extern uint result;
+
 
 data uint g _at_ 0x2f;
 
 void readDAC()
 {
+		param[0]=disp[5];
+		param[1]=disp[6]*10+disp[7];
+		write24c02();
+}
+
+void disDAC()
+{
+	uint result;
 	sen:	erflags=0;
 			Start();
-			SendByte(0x90);
+			SendByte(0xa0);
 			cAck();
 			if(erflags) goto sen;
 			SendByte(0x00);
@@ -26,9 +34,9 @@ void readDAC()
 			if(erflags) goto sen;
 			result=RcvByte();
 			Ack();
-	param[0]=result/100;
-	param[1]=result%100;
-	write24c02();
+	disp[5]=result/100;
+	disp[6]=result%100/10;
+	disp[7]=result%10;
 }
 
 void read24c02(void)
