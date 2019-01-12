@@ -1,4 +1,5 @@
 #include "DISP.h"
+#include "Func.h"
 sbit OE=P1^3;
 sbit duan=P1^4;
 sbit wei=P1^5;
@@ -15,17 +16,12 @@ uchar key=99;
 uchar temp;
 uchar d2;
 uchar hide=0xff;
-unsigned int timing=0;
+unsigned int count=0;
 
 extern data uchar  param[9];
 extern data uchar k;
 extern bit setup;
-
-void display()
-{
-	
-}
-
+extern uchar flag;
 
 void delay(uchar ti)
 {
@@ -42,21 +38,10 @@ void scan() interrupt 1
 	TR0=0;
 	TH0=(65536-500)/256;
 	TL0=(65536-500)%256;
-	if(timing>=70)
-	{
-		timing=0;
-		hide=~hide;
-	}
 	t=disp[i];
 	OE=1;
-	if(setup&&(k==i))
-	{
-		P0=table[t]&hide;
-	}
-	else
-	{
-		P0=table[t];
-	}
+	P0=table[t];
+	if(i==5) P0=P0|0x80;
 	duan=1;
 	duan=0;
 	P0=sled_bit[i];
@@ -68,6 +53,11 @@ void scan() interrupt 1
 	{
 		i=0;
 	}
-	timing=timing+1;
+	count=count+1;
+	if(count==600&&flag==0xff)
+	{
+		count=0;
+		readDAC();
+	}
 	TR0=1;
 }

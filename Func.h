@@ -8,4 +8,5 @@ void write24c02(void);
 void read24c02(void);
 void readDAC();
 void disDAC();
+void DAC();
 #endif

@@ -30,24 +30,17 @@ compiling IIC.c...
 compiling main.c...
 linking...
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?DISPLAY?DISP
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_DELAY?DISP
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?READDAC?FUNC
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?READ24C02?FUNC
-*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
-    SYMBOL:  SETUP
-    MODULE:  .\Objects\DISP.obj (DISP)
-*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
-    SYMBOL:  SETUP
-    MODULE:  .\Objects\DISP.obj (DISP)
-    ADDRESS: 00CFH
-Program Size: data=57.0 xdata=0 code=922
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_SENDBYTE?IIC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?SCAN?DISP
+Program Size: data=60.0 xdata=0 code=1332
 creating hex file from ".\Objects\Flush"...
-".\Objects\Flush" - 0 Error(s), 6 Warning(s).
-Build Time Elapsed:  00:00:02
+".\Objects\Flush" - 0 Error(s), 3 Warning(s).
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>
