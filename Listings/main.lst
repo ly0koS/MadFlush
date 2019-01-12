@@ -1,4 +1,4 @@
-C51 COMPILER V9.59.0.0   MAIN                                                              01/12/2019 17:26:33 PAGE 1   
+C51 COMPILER V9.59.0.0   MAIN                                                              01/12/2019 17:33:39 PAGE 1   
 
 
 C51 COMPILER V9.59.0.0, COMPILATION OF MODULE MAIN
@@ -14,7 +14,7 @@ line level    source
    4          
    5          sbit over=P1^0;
    6          
-   7          data uchar param[9];
+   7          data uchar param[3];
    8          data da;
    9          uchar k;
   10          
@@ -45,7 +45,7 @@ MODULE INFORMATION:   STATIC OVERLAYABLE
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =     12    ----
+   DATA SIZE        =      6    ----
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.

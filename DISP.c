@@ -21,61 +21,9 @@ extern data uchar  param[9];
 extern data uchar k;
 extern bit setup;
 
-void display(uchar d1,dt)
+void display()
 {
-	d2=dt;
-	disp[0]=d1;
-	if(d2==0x0f)
-	{
-		disp[2]=15;
-		switch(disp[1])
-		{
-			case(1):
-			{
-				disp[3]=17;
-				disp[4]=17; 
-				disp[5]=17;  
-				disp[7]=param[1]%10;
-				disp[6]=param[1]/10;
-				break;
-			}
-			case(2):
-			{
-				disp[3]=17;
-				disp[4]=param[3];
-				disp[5]=param[4]/100;
-				disp[6]=(param[4]/10)%10;
-				disp[7]=param[4]%10;
-				break;
-			}
-		}
-	}
-	else if(d2==0x0a)
-	{
-		switch(param[6])
-		{
-			case(1):
-			{
-				disp[2]=10;
-				disp[3]=17;
-				disp[4]=17; 
-				disp[5]=17;  
-				disp[7]=param[2]%10;
-				disp[6]=param[2]/10;
-				break;
-			}
-			case(2):
-			{
-				disp[2]=13;
-				disp[3]=17;
-				disp[4]=17; 
-				disp[5]=17; 
-				disp[7]=param[5]%10;
-				disp[6]=param[5]/10;
-				break;
-			}
-		}
-	}
+	
 }
 
 

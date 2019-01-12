@@ -4,7 +4,7 @@
 
 sbit over=P1^0;
 
-data uchar param[9];
+data uchar param[3];
 data da;
 uchar k;
 
