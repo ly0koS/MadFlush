@@ -6,7 +6,5 @@
 void Calculate();
 void write24c02(void);
 void read24c02(void);
-uchar keyscan();
-void ParamProcess();
-void NumProcess(unsigned int keynum);
+void DAC();
 #endif

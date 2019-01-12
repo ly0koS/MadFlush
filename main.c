@@ -4,7 +4,7 @@
 
 sbit over=P1^0;
 
-data uchar param[3];
+data uchar param[2];
 data da;
 uchar k;
 
@@ -22,7 +22,7 @@ void main()
 	TH0=(65536-500)/256;
   TL0=(65536-500)%256;
 	TR0=1;
-	read24c02();
+	DAC();
 	while(1)
 	{
 		
