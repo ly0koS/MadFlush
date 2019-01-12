@@ -1,0 +1,7 @@
+".\Objects\STARTUP.obj",
+".\Objects\DISP.obj",
+".\Objects\Func.obj",
+".\Objects\IIC.obj",
+".\Objects\main.obj" 
+TO ".\Objects\Flush" 
+PRINT(".\Listings\Flush.m51") RAMSIZE(256) 
