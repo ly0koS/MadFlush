@@ -10,7 +10,6 @@ extern data da;
 extern uchar disp[8];
 extern uchar d2;
 extern uchar k;
-extern uint flag;
 extern unsigned long result;
 
 
@@ -67,7 +66,6 @@ void read24c02(void)
 	}
 	NoAck();
 	Stop();
-	flag=1;
 }
 
 
@@ -91,5 +89,4 @@ void write24c02(void)
 		cAck( );
 	}
 	Stop();
-	flag=1;
 }

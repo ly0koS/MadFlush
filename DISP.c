@@ -1,5 +1,6 @@
 #include "DISP.h"
 #include "Func.h"
+
 sbit OE=P1^3;
 sbit duan=P1^4;
 sbit wei=P1^5;
@@ -7,6 +8,7 @@ sbit K1=P2^0;
 sbit K2=P2^1;
 
 #define uchar unsigned char
+#define uint unsigned int
 	
 uchar disp[8]={7,1,3,18,17,16,16,16};
 uchar code sled_bit[]={0xfe,0xfd,0xfb,0xf7,0xef,0xdf,0xbf,0x7f};
@@ -35,9 +37,8 @@ void delay(uchar ti)
 void scan() interrupt 1
 {
 	uchar t;
-	TR0=0;
-	TH0=(65536-500)/256;
-	TL0=(65536-500)%256;
+	TH0=0xfe;
+	TL0=0x0c;
 	t=disp[i];
 	OE=1;
 	P0=table[t];
@@ -59,5 +60,4 @@ void scan() interrupt 1
 		count=0;
 		readDAC();
 	}
-	TR0=1;
 }
