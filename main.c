@@ -23,9 +23,9 @@ extern uint count;
 void main()
 {
 	EA=1;
-	EX1=1;
+	EX0=1;
 	ET0=1;
-	IT1=1;
+	IT1=0;
 	TMOD|=0x01;
 	TH0=0xfe;
 	TL0=0x0c;
@@ -45,14 +45,16 @@ void main()
 	}
 }
 	
-void Pause() interrupt 2
+void Pause() interrupt 0
 {
+	EX0=0;
 	flag=~flag;
-//	read24c02();
+	readDAC();
 	if(flag==0x00)
 	{
 		disp[5]=param[0];
 		disp[6]=param[1]/10;
 		disp[7]=param[1]%10;
 	}
+	EX0=1;
 }

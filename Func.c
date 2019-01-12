@@ -48,7 +48,7 @@ void DAC()
 
 void read24c02(void)
 {
-	uchar temp,i;
+	uchar i;
 	sen:	erflags=0;
 		Start();
 		SendByte(0xa0); 				
@@ -57,12 +57,10 @@ void read24c02(void)
 		SendByte(0x00); 					
 		cAck( );							
 		if(erflags==1) goto sen;
-	temp=RcvByte();
-	Ack();
-	for(i=0;i<3;i++)
+	for(i=0;i<2;i++)
 	{
-		Ack();
 		param[i]=RcvByte();
+		Ack();
 	}
 	NoAck();
 	Stop();
