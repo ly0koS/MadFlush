@@ -25,20 +25,11 @@ extern data uchar k;
 extern bit setup;
 extern uchar flag;
 
-void delay(uchar ti)
-{
-	uchar t;
-	while(ti--)
-	{
-		for(t=0;t<255;t++);
-	}
-}
-
 void scan() interrupt 1
 {
 	uchar t;
-	TH0=0xfe;
-	TL0=0x0c;
+	TH0=(65536-500)/256;
+	TL0=(65536-500)%256;
 	t=disp[i];
 	OE=1;
 	P0=table[t];
@@ -55,7 +46,7 @@ void scan() interrupt 1
 		i=0;
 	}
 	count=count+1;
-	if(count==600&&flag==0xff)
+	if(count>=2000&&flag==0xff)
 	{
 		count=0;
 		readDAC();

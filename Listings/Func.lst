@@ -1,4 +1,4 @@
-C51 COMPILER V9.59.0.0   FUNC                                                              01/13/2019 23:16:57 PAGE 1   
+C51 COMPILER V9.59.0.0   FUNC                                                              01/14/2019 19:03:47 PAGE 1   
 
 
 C51 COMPILER V9.59.0.0, COMPILATION OF MODULE FUNC
@@ -62,41 +62,41 @@ line level    source
   52   1        sen:  erflags=0;
   53   1          Start();
   54   1          SendByte(0xa0);         
-C51 COMPILER V9.59.0.0   FUNC                                                              01/13/2019 23:16:57 PAGE 2   
+C51 COMPILER V9.59.0.0   FUNC                                                              01/14/2019 19:03:47 PAGE 2   
 
   55   1          cAck( );              
   56   1          if(erflags==1) goto sen;      
   57   1          SendByte(0x00);           
   58   1          cAck( );              
   59   1          if(erflags==1) goto sen;
-  60   1        for(i=0;i<2;i++)
-  61   1        {
-  62   2          param[i]=RcvByte();
-  63   2          Ack();
-  64   2        }
-  65   1        NoAck();
-  66   1        Stop();
-  67   1      }
-  68          
-  69          
-  70          void write24c02(void)
-  71          {
-  72   1        uchar i;
-  73   1        sen:  erflags=0;              
-  74   1          Start( );               
-  75   1          SendByte(0xa0);         
-  76   1          cAck( );              
-  77   1          if(erflags==1) goto sen;      
-  78   1          SendByte(0x00);           
+  60   1          SendByte(0xa0);         
+  61   1          cAck( );              
+  62   1          if(erflags==1) goto sen;
+  63   1        for(i=0;i<2;i++)
+  64   1        {
+  65   2          param[i]=RcvByte();
+  66   2          Ack();
+  67   2        }
+  68   1        NoAck();
+  69   1        Stop();
+  70   1      }
+  71          
+  72          
+  73          void write24c02(void)
+  74          {
+  75   1        uchar i;
+  76   1        sen:  erflags=0;              
+  77   1          Start( );               
+  78   1          SendByte(0xa0);         
   79   1          cAck( );              
-  80   1          if(erflags==1) goto sen;
-  81   1          SendByte(0xa1);           
+  80   1          if(erflags==1) goto sen;      
+  81   1          SendByte(0x00);           
   82   1          cAck( );              
   83   1          if(erflags==1) goto sen;
-  84   1        for(i=0;i<3;i++)
+  84   1        for(i=0;i<2;i++)
   85   1        {
   86   2          SendByte(param[i]);             
-  87   2          cAck( );
+  87   2          Ack( );
   88   2        }
   89   1        Stop();
   90   1      }

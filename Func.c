@@ -57,6 +57,9 @@ void read24c02(void)
 		SendByte(0x00); 					
 		cAck( );							
 		if(erflags==1) goto sen;
+		SendByte(0xa0); 				
+		cAck( );							
+		if(erflags==1) goto sen;
 	for(i=0;i<2;i++)
 	{
 		param[i]=RcvByte();
@@ -78,13 +81,10 @@ void write24c02(void)
 		SendByte(0x00); 					
 		cAck( );							
 		if(erflags==1) goto sen;
-		SendByte(0xa1); 					
-		cAck( );							
-		if(erflags==1) goto sen;
-	for(i=0;i<3;i++)
+	for(i=0;i<2;i++)
 	{
 		SendByte(param[i]); 						
-		cAck( );
+		Ack( );
 	}
 	Stop();
 }
