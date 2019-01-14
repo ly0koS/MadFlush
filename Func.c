@@ -6,10 +6,8 @@
 sbit erflags=PSW^5;
 
 extern data uchar  param[2];
-extern data da;
 extern uchar disp[8];
 extern uchar d2;
-extern uchar k;
 extern unsigned long result;
 
 
@@ -66,7 +64,6 @@ void read24c02(void)
 		Ack();
 	}
 	NoAck();
-	Stop();
 }
 
 
