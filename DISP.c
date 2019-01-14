@@ -44,9 +44,9 @@ void scan() interrupt 1
 		i=0;
 	}
 	count=count+1;
-	if(count>=2000&&flag==0xff)
+	if(count>=2000&&flag==0xff)						//5s且为运行状态
 	{
-		count=0;
-		readDAC();
+		count=0;														//重新记次
+		readDAC();													//调用读取电压值函数(见Func.c)
 	}
 }

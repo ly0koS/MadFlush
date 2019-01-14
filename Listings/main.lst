@@ -1,4 +1,4 @@
-C51 COMPILER V9.59.0.0   MAIN                                                              01/15/2019 00:32:31 PAGE 1   
+C51 COMPILER V9.59.0.0   MAIN                                                              01/15/2019 00:48:45 PAGE 1   
 
 
 C51 COMPILER V9.59.0.0, COMPILATION OF MODULE MAIN
@@ -8,61 +8,67 @@ COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE 
 
 line level    source
 
-   1          #include "IIC.h"
-   2          #include "Func.h"
-   3          #include "DISP.h"
-   4          
-   5          #define uchar unsigned char
-   6          #define uint  unsigned int
-   7          
-   8          sbit over=P1^0;                         //超过2.5V警示灯
+   1          /*文件说明:main.c:主函数文件        【包含:暂停按键--外部中断0+主函数】 
+   2                     Func.c:自定义功能函数文件【包含:读取PCF8591电压值并写入24c02|显示DAC电压值|PCF8591初始化(A->D)|24c02
+             -读写】
+   3                     DISP.c:显示函数文件      【包含:数码管动态显示&5s记录电压值】
+   4                     */
+   5          
+   6          #include "IIC.h"
+   7          #include "Func.h"
+   8          #include "DISP.h"
    9          
-  10          data uchar param[2] _at_ 0x20;          //存储电压值数组param[0]:整数,param[1]:小数
-  11          unsigned long result;                   //DAC读出的电压值
-  12          data uchar flag _at_ 0x30;              //暂停|继续标志位
-  13          
-  14          extern uchar disp[8];                   //数码管显示数组
-  15          
-  16          void main()
-  17          {
-  18   1        EA=1;                                 //总中断允许
-  19   1        EX0=1;                                //外部中断0中断允许
-  20   1        ET0=1;                                //计时器0中断允许
-  21   1        IT0=0;                                //外部中断0设置为电平触发         
-  22   1        TMOD|=0x01;
-  23   1        TH0=(65536-500)/256;
-  24   1        TL0=(65536-500)%256;
-  25   1        TR0=1;
-  26   1        flag=0xff;
-  27   1        DAC();
-  28   1        disDAC();
-  29   1        write24c02();
-  30   1        while(1)
-  31   1        {
-  32   2          if(flag==0xff)
-  33   2          {
-  34   3            DAC();
-  35   3            disDAC();
-  36   3          }
-  37   2          else
+  10          #define uchar unsigned char
+  11          #define uint  unsigned int
+  12          
+  13          sbit over=P1^0;                         //超过2.5V警示灯
+  14          
+  15          data uchar param[2] _at_ 0x20;          //存储电压值数组param[0]:整数,param[1]:小数
+  16          unsigned long result;                   //DAC读出的电压值
+  17          data uchar flag _at_ 0x30;              //暂停|继续标志位
+  18          
+  19          extern uchar disp[8];                   //数码管显示数组
+  20          
+  21          void main()
+  22          {
+  23   1        EA=1;                                 //总中断允许
+  24   1        EX0=1;                                //外部中断0中断允许
+  25   1        ET0=1;                                //计时器0中断允许
+  26   1        IT0=1;                                //外部中断0设置为跳沿触发         
+  27   1        TMOD|=0x01;                           //计时器0设置为方式1
+  28   1        TH0=(65536-500)/256;                  //数码管动态显示计时器0初值
+  29   1        TL0=(65536-500)%256;
+  30   1        TR0=1;                                //计时器0运行
+  31   1        flag=0xff;                            //运行状态
+  32   1        DAC();                                //调用I2C PCF8591初始化(A->D)
+  33   1        disDAC();                             //显示电压值
+  34   1        write24c02();                         //写入24c02
+  35   1        while(1)
+  36   1        {
+  37   2          if(flag==0xff)                      //运行状态时
   38   2          {
-  39   3            disp[5]=param[0];
-  40   3            disp[6]=param[1]/10;
-  41   3            disp[7]=param[1]%10;
-  42   3          }
-  43   2          if(result>=250)
-  44   2            over=0;
-  45   2          else
-  46   2            over=1;
-  47   2        }
-  48   1      }
-  49            
-  50          void Pause() interrupt 0
-  51          {
-  52   1        flag=~flag;
+  39   3            DAC();                            //调用I2C PCF8591初始化(A->D)
+  40   3            disDAC();                         //显示电压值
+  41   3          }
+  42   2          else                                //暂停时
+  43   2          {
+  44   3            disp[5]=param[0];                 //显示24c02中存储的电压值
+  45   3            disp[6]=param[1]/10;
+  46   3            disp[7]=param[1]%10;
+  47   3          }
+  48   2          if(result>=250)                     //超出2.5V报警
+  49   2            over=0;
+  50   2          else                                //不报警
+  51   2            over=1;
+  52   2        }
   53   1      }
+C51 COMPILER V9.59.0.0   MAIN                                                              01/15/2019 00:48:45 PAGE 2   
 
-C51 COMPILER V9.59.0.0   MAIN                                                              01/15/2019 00:32:31 PAGE 2   
+  54            
+  55          void Pause() interrupt 0                //按下暂停按键
+  56          {
+  57   1        flag=~flag;                           //状态翻转
+  58   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
